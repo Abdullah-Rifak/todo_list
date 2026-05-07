@@ -1,0 +1,47 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.app {
+  width: 500px;
+  margin: auto;
+  padding-top: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input,
+textarea {
+  padding: 10px;
+}
+
+button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.todo-card {
+  background: white;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.done {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+.todo-card button {
+  margin-right: 10px;
+}
+
+.todo-card input,
+.todo-card textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
