@@ -12,7 +12,6 @@ function App() {
   const getErrorMessage = (err, fallbackMessage) =>
     err?.response?.data?.message || err?.message || fallbackMessage;
 
-  // FETCH TODOS
   const fetchTodos = useCallback(async () => {
     setLoading(true);
     setError("");

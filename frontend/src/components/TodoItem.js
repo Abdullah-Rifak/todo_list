@@ -13,7 +13,6 @@ function TodoItem({ todo, fetchTodos }) {
   const getErrorMessage = (err, fallbackMessage) =>
     err?.response?.data?.message || err?.message || fallbackMessage;
 
-  // TOGGLE DONE
   const toggleDone = async () => {
     setError("");
     setSaving(true);
@@ -28,7 +27,6 @@ function TodoItem({ todo, fetchTodos }) {
     }
   };
 
-  // DELETE TODO
   const deleteTodo = async () => {
     setError("");
     setSaving(true);
@@ -44,7 +42,6 @@ function TodoItem({ todo, fetchTodos }) {
     }
   };
 
-  // UPDATE TODO
   const updateTodo = async () => {
     setError("");
 

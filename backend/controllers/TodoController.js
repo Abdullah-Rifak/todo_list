@@ -2,7 +2,6 @@ const Todo = require("../models/Todo");
 
 const isValidObjectId = (id) => Todo.db.base.Types.ObjectId.isValid(id);
 
-// GET all todos
 exports.getTodos = async (req, res) => {
   try {
     const todos = await Todo.find().sort({ createdAt: -1 });
@@ -12,7 +11,6 @@ exports.getTodos = async (req, res) => {
   }
 };
 
-// CREATE todo
 exports.createTodo = async (req, res) => {
   try {
     const { title, description } = req.body;
@@ -30,7 +28,6 @@ exports.createTodo = async (req, res) => {
   }
 };
 
-// UPDATE todo
 exports.updateTodo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -66,7 +63,6 @@ exports.updateTodo = async (req, res) => {
   }
 };
 
-// TOGGLE done
 exports.toggleDone = async (req, res) => {
   try {
     const { id } = req.params;
@@ -90,7 +86,6 @@ exports.toggleDone = async (req, res) => {
   }
 };
 
-// DELETE todo
 exports.deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;

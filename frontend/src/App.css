@@ -142,7 +142,6 @@ button:active:not(:disabled) {
   transform: translateY(0);
 }
 
-/* Color-coded button styles */
 .btn-done {
   background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
   box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
@@ -208,7 +207,6 @@ button:active:not(:disabled) {
   min-width: 80px;
 }
 
-/* Delete confirmation dialog */
 .delete-confirmation {
   background: rgba(255, 107, 107, 0.1);
   border: 2px solid rgba(255, 107, 107, 0.5);
@@ -246,7 +244,6 @@ button:active:not(:disabled) {
   font-size: 0.9rem;
 }
 
-/* Two-column view layout */
 .two-column-view {
   display: grid;
   grid-template-columns: 1fr 1fr;
