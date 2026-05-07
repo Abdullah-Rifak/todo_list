@@ -7,6 +7,15 @@ Express + MongoDB API for the TODO app.
 - Node.js
 - MongoDB Atlas or a local MongoDB instance
 
+## Environment Variables
+
+Create a `.env` file in the `backend` folder with:
+
+```bash
+MONGODB_URI=your_mongodb_connection_string
+PORT=5000
+```
+
 ## Setup
 
 ```bash
@@ -35,9 +44,7 @@ npx nodemon server.js
 
 ## MongoDB Notes
 
-The backend currently connects to MongoDB from `server.js`. Make sure the connection string points to a valid MongoDB Atlas cluster or local MongoDB instance before running the app.
-
-If you move the connection string to environment variables later, document the variable name and value format here.
+The backend reads the MongoDB connection string from `MONGODB_URI` in `.env`. Use either a MongoDB Atlas URI or a local MongoDB connection string.
 
 ## Assumptions / Limitations
 

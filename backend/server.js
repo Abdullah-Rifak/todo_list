@@ -1,10 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const todoRoutes = require("./routes/TodoRouters");
 
 const app = express();
+
+const mongoUri = process.env.MONGODB_URI;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -13,12 +19,20 @@ app.use(express.json());
 app.use("/api", todoRoutes);
 
 // DB CONNECTION
+if (!mongoUri) {
+  console.error("Missing MONGODB_URI environment variable.");
+  process.exit(1);
+}
+
 mongoose
-  .connect("mongodb://abdullahrifak522_db_user:WTcYq5Q7LMiSP8X1@ac-umnbdeo-shard-00-00.4yitpgn.mongodb.net:27017,ac-umnbdeo-shard-00-01.4yitpgn.mongodb.net:27017,ac-umnbdeo-shard-00-02.4yitpgn.mongodb.net:27017/?ssl=true&replicaSet=atlas-h8ot1e-shard-0&authSource=admin&appName=Cluster0")//mongodb+srv://abdullahrifak522_db_user:WTcYq5Q7LMiSP8X1@cluster0.4yitpgn.mongodb.net/?appName=Cluster0")
+  .connect(mongoUri)
   .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  });
 
 // SERVER
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

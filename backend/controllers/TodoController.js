@@ -1,5 +1,7 @@
 const Todo = require("../models/Todo");
 
+const isValidObjectId = (id) => Todo.db.base.Types.ObjectId.isValid(id);
+
 // GET all todos
 exports.getTodos = async (req, res) => {
   try {
@@ -34,13 +36,31 @@ exports.updateTodo = async (req, res) => {
     const { id } = req.params;
     const { title, description } = req.body;
 
-    const updated = await Todo.findByIdAndUpdate(
-      id,
-      { title, description },
-      { new: true }
-    );
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Invalid todo id" });
+    }
 
-    res.json(updated);
+    const todo = await Todo.findById(id);
+
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
+    if (title !== undefined) {
+      if (!title.trim()) {
+        return res.status(400).json({ message: "Title cannot be empty" });
+      }
+
+      todo.title = title.trim();
+    }
+
+    if (description !== undefined) {
+      todo.description = description;
+    }
+
+    await todo.save();
+
+    res.json(todo);
   } catch (err) {
     res.status(500).json({ message: "Failed to update todo" });
   }
@@ -51,7 +71,16 @@ exports.toggleDone = async (req, res) => {
   try {
     const { id } = req.params;
 
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Invalid todo id" });
+    }
+
     const todo = await Todo.findById(id);
+
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
     todo.done = !todo.done;
     await todo.save();
 
@@ -66,7 +95,16 @@ exports.deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;
 
-    await Todo.findByIdAndDelete(id);
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Invalid todo id" });
+    }
+
+    const deletedTodo = await Todo.findByIdAndDelete(id);
+
+    if (!deletedTodo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
     res.json({ message: "Todo deleted" });
   } catch (err) {
     res.status(500).json({ message: "Failed to delete todo" });
