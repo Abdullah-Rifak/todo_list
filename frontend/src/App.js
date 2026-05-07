@@ -12,7 +12,6 @@ function App() {
   const getErrorMessage = (err, fallbackMessage) =>
     err?.response?.data?.message || err?.message || fallbackMessage;
 
-  // FETCH TODOS
   const fetchTodos = useCallback(async () => {
     setLoading(true);
     setError("");
@@ -49,12 +48,32 @@ function App() {
 
       {loading ? (
         <p className="message status-message">Loading TODOs...</p>
+      ) : todos.length > 0 ? (
+        <div className="two-column-view">
+          <div className="column">
+            <h2 className="column-title pending-title">⧖ Pending</h2>
+            <TodoList
+              todos={todos.filter((t) => !t.done)}
+              fetchTodos={fetchTodos}
+            />
+            {todos.filter((t) => !t.done).length === 0 && (
+              <p className="column-empty">All tasks completed!</p>
+            )}
+          </div>
+
+          <div className="column">
+            <h2 className="column-title done-title">✓ Completed</h2>
+            <TodoList
+              todos={todos.filter((t) => t.done)}
+              fetchTodos={fetchTodos}
+            />
+            {todos.filter((t) => t.done).length === 0 && (
+              <p className="column-empty">No completed tasks yet.</p>
+            )}
+          </div>
+        </div>
       ) : (
-        todos.length > 0 ? (
-          <TodoList todos={todos} fetchTodos={fetchTodos} />
-        ) : (
-          <p className="message status-message">No TODOs yet. Add your first task above.</p>
-        )
+        <p className="message status-message">No TODOs yet. Add your first task above.</p>
       )}
     </div>
   );

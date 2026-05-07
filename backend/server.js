@@ -15,10 +15,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// ROUTES
 app.use("/api", todoRoutes);
 
-// DB CONNECTION
 if (!mongoUri) {
   console.error("Missing MONGODB_URI environment variable.");
   process.exit(1);
@@ -32,7 +30,6 @@ mongoose
     process.exit(1);
   });
 
-// SERVER
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
